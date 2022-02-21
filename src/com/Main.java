@@ -47,21 +47,14 @@ public class Main {
     public static void main(String[] args) throws SQLException {
     
         databaseInitializer();
-        /*
         Register reg = new Register();
         showOnScreen(1, reg);
 
         reg.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                try {
-                    customers = DatabaseConnector.retrieveTableData();
-                    System.out.println(Arrays.toString(customers));
-                } catch (SQLException e1) {
-                }
                 new ManagementSystem();
             }
         });
-        */
     }
 }

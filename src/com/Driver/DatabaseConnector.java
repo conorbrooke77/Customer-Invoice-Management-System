@@ -76,10 +76,10 @@ public class DatabaseConnector {
 
         ResultSet set = statement.executeQuery("SELECT * FROM Customer");
 
-        while (set.next()) {
-            collection[set.getInt("customerID")-1] = new Customer(set.getString("firstName"), set.getString("lastName"), set.getString("email"), set.getString("password"), set.getString("phoneNumber"));
+        //while (set.next()) {
+           // collection[set.getInt("customerID")-1] = new Customer(set.getString("firstName"), set.getString("lastName"), set.getString("email"), set.getString("password"), set.getString("phoneNumber"));
             
-        }
+        //}
 
         return collection;
     }
