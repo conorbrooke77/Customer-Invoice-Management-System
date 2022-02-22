@@ -22,6 +22,7 @@ public class ManagementSystem extends JFrame {
         createHeader();
         createNavBar();
         createNavigationPanel();
+        add(new Template("Dashboard"), BorderLayout.CENTER);
 
         setVisible(true);
     }
@@ -136,7 +137,12 @@ public class ManagementSystem extends JFrame {
                 }
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent event) {
+                    BorderLayout layout = (BorderLayout) getContentPane().getLayout();
+                    remove(layout.getLayoutComponent(BorderLayout.CENTER));
+
                     selected = setClicked(event, selected, highlighted);
+                    revalidate();
+                    repaint();
                 }
             });
 
@@ -159,18 +165,23 @@ public class ManagementSystem extends JFrame {
             repaint();
 
             if (e.getSource().equals(navagationPanels[0])) {
+                add(new Template("Dashboard"), BorderLayout.CENTER);
                 navagationPanels[0].setFocusable(false);
                 return navagationPanels[0];
             } else if (e.getSource().equals(navagationPanels[1])) {
+                add(new Template("Product"), BorderLayout.CENTER);
                 navagationPanels[1].setFocusable(false);
                 return navagationPanels[1];
             } else if (e.getSource().equals(navagationPanels[2])) {
+                add(new Template("Invoice"), BorderLayout.CENTER);
                 navagationPanels[2].setFocusable(false);
                 return navagationPanels[2];
             } else if (e.getSource().equals(navagationPanels[3])) {
+                add(new Template("Customer"), BorderLayout.CENTER);
                 navagationPanels[3].setFocusable(false);
                 return navagationPanels[3];
             } else if (e.getSource().equals(navagationPanels[4])) {
+                add(new Template("System User"), BorderLayout.CENTER);
                 navagationPanels[4].setFocusable(false);
                 return navagationPanels[4];
             }

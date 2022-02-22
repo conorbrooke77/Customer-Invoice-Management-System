@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.Entities.*;
 import com.Information.Address;
+import com.Information.LoginSessionData;
 
 public class DatabaseConnector {
 
@@ -115,5 +116,24 @@ public class DatabaseConnector {
         }
 
         return collection;
+    }
+
+    public static boolean retrieveLoginData(String email, String password) throws  SQLException {
+        Statement statement = con.createStatement();
+
+        ResultSet admin = statement.executeQuery("SELECT * FROM Admin WHERE email='" + email+ "' AND password='"+password+"'");
+        
+        if (admin.next()) {
+            LoginSessionData.createAdmin(admin.getString("firstName"), admin.getString("lastName"), admin.getString("email"), admin.getString("phoneNumber"), admin.getString("password"));
+            return true;
+        } else {
+            ResultSet customer = statement.executeQuery("SELECT * FROM Customer WHERE email='" + email+ "' AND password='"+password+"'");
+            if (customer.next()) 
+                LoginSessionData.createCustomer(customer.getString("firstName"), customer.getString("lastName"), customer.getString("email"), customer.getString("phoneNumber"), customer.getString("password"), customer.getInt("addressId"));
+            else
+                return false;
+
+            return true;
+        }
     }
 }

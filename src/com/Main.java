@@ -3,24 +3,15 @@ package com;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
-import java.util.*;
 
 import javax.swing.*;
 
 import com.Driver.DatabaseConnector;
 import com.Entities.*;
 import com.GUI.*;
-import com.Information.Address;
-import com.Invoice.*;
 
 public class Main {
-
-    private static ArrayList<Admin> admins;
-    private static ArrayList<Customer> customers;
-    private static ArrayList<Address> addresses;
-    private static ArrayList<Invoice> invoices;
-    private static ArrayList<Product> Products;
-
+    private static Register register;
 
     public static void showOnScreen(int screen, JFrame frame ) {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -37,31 +28,23 @@ public class Main {
         }
     }
 
-
-    public static void databaseInitializer() throws SQLException {
-        DatabaseConnector.createConnection();
-        
-        admins = DatabaseConnector.retrieveAdmins();
-        addresses = DatabaseConnector.retrieveAddresses();
-        customers = DatabaseConnector.retrieveCustomers(addresses);
-    }
-
     public static void main(String[] args) throws SQLException {
-    
-        databaseInitializer();
-
+        
+        /*
         Login login = new Login();
         showOnScreen(1, login);
         
-        /*Register reg = new Register();
-        showOnScreen(1, reg);
 
-        reg.addWindowListener(new WindowAdapter() {
+        login.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                new ManagementSystem();
+                if (login.getListenerComponent().equals("login"))
+                    new ManagementSystem();
+                else if (login.getListenerComponent().equals("register"))
+                    register = new Register();
             }
         });
         */
+        showOnScreen(1, new ManagementSystem());
     }
 }
