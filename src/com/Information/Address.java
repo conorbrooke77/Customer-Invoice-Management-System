@@ -2,7 +2,9 @@ package com.Information;
 
 public class Address {
 
-    private static int addressId;
+    private static int totalAddress;
+    private int addressId;
+
     // Creates a valid address;
     private String street;
     private String town;
@@ -24,7 +26,8 @@ public class Address {
     }
 
     public void increaseAddresses() {
-        addressId++;
+        totalAddress++;
+        addressId = totalAddress;
     }
 
     public int getAddressId() {
@@ -64,6 +67,6 @@ public class Address {
     }
 
     public String toString() {
-        return "\nStreet: " + street + "\nTown: " + town + "\nCounty: " + county + "\nEircode: " + eircode;
+        return "\nStreet: " + street + "\nTown: " + town + "\nCounty: " + county + "\nEircode: " + eircode + "\n\n";
     }
 }

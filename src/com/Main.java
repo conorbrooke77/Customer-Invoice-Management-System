@@ -3,7 +3,7 @@ package com;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
-import java.util.Arrays;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -15,11 +15,11 @@ import com.Invoice.*;
 
 public class Main {
 
-    private static Admin[] admins;
-    private static Customer[] customers;
-    private static Address[] addresses;
-    private static Invoice[] invoices;
-    private static Product[] Products;
+    private static ArrayList<Admin> admins;
+    private static ArrayList<Customer> customers;
+    private static ArrayList<Address> addresses;
+    private static ArrayList<Invoice> invoices;
+    private static ArrayList<Product> Products;
 
 
     public static void showOnScreen(int screen, JFrame frame ) {
@@ -41,13 +41,19 @@ public class Main {
     public static void databaseInitializer() throws SQLException {
         DatabaseConnector.createConnection();
         
-        customers = DatabaseConnector.retrieveCustomers();
+        admins = DatabaseConnector.retrieveAdmins();
+        addresses = DatabaseConnector.retrieveAddresses();
+        customers = DatabaseConnector.retrieveCustomers(addresses);
     }
 
     public static void main(String[] args) throws SQLException {
     
         databaseInitializer();
-        Register reg = new Register();
+
+        Login login = new Login();
+        showOnScreen(1, login);
+        
+        /*Register reg = new Register();
         showOnScreen(1, reg);
 
         reg.addWindowListener(new WindowAdapter() {
@@ -56,5 +62,6 @@ public class Main {
                 new ManagementSystem();
             }
         });
+        */
     }
 }

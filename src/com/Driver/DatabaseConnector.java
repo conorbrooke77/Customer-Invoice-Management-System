@@ -1,6 +1,7 @@
 package com.Driver;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import com.Entities.*;
 import com.Information.Address;
@@ -67,24 +68,52 @@ public class DatabaseConnector {
         System.out.println(insert + " address successfully added to the table");
     }
 
-    public static Customer[] retrieveCustomers() throws SQLException {
+    public static ArrayList<Address> retrieveAddresses() throws  SQLException {
         Statement statement = con.createStatement();
 
-        ResultSet rowCount = statement.executeQuery("select count(*) from Customer");
-        rowCount.next();
-        Customer[] collection = new Customer[rowCount.getInt(1)];
+        ArrayList<Address> collection = new ArrayList<Address>();
 
-        ResultSet set = statement.executeQuery("SELECT * FROM Customer");
+        ResultSet set = statement.executeQuery("SELECT * FROM Address");
 
-        //while (set.next()) {
-           // collection[set.getInt("customerID")-1] = new Customer(set.getString("firstName"), set.getString("lastName"), set.getString("email"), set.getString("password"), set.getString("phoneNumber"));
-            
-        //}
+        while (set.next()) {
+            collection.add(new Address(set.getString("street"), set.getString("town"), set.getString("county"), set.getString("eircode")));
+        }
 
         return collection;
     }
 
-    public static Address[] retrieveAddresses() throws  SQLException {
-        return null;
+    public static ArrayList<Customer> retrieveCustomers(ArrayList<Address> addresses) throws SQLException {
+        Statement statement = con.createStatement();
+
+        ArrayList<Customer> collection = new ArrayList<Customer>();
+
+        ResultSet set = statement.executeQuery("SELECT * FROM Customer");
+
+        int i = 0;
+        while (set.next()) {
+            collection.add(new Customer(set.getString("firstName"), set.getString("lastName"), set.getString("email"), set.getString("password"), set.getString("phoneNumber")));
+
+            if(addresses.get(i).getAddressId() == set.getInt("addressID"))  {
+                collection.get(i).addCustomerAddress((addresses.get(i)));
+            }
+
+            i++;
+        }
+
+        return collection;
+    }
+
+    public static ArrayList<Admin> retrieveAdmins() throws  SQLException {
+        Statement statement = con.createStatement();
+
+        ArrayList<Admin> collection = new ArrayList<Admin>();
+
+        ResultSet set = statement.executeQuery("SELECT * FROM Admin");
+
+        while (set.next()) {
+            collection.add(new Admin(set.getString("firstName"), set.getString("lastName"), set.getString("email"), set.getString("phoneNumber"), set.getString("password")));
+        }
+
+        return collection;
     }
 }

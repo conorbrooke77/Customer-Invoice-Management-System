@@ -83,7 +83,7 @@ public class Account {
     }
     
     public String toString() {
-        return "\nEmail: " + email + "\nPassword: " + password ;
+        return "\nEmail: " + email + "\nPassword: " + password + "\n\n" ;
     }
 
 }
