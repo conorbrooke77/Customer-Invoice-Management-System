@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import com.Driver.DatabaseConnector;
+import com.Database.DatabaseConnector;
 import com.Entities.*;
 import com.Information.Address;
 
@@ -242,6 +242,7 @@ public class Register extends JFrame {
         }
 
         dispose();
+        new Login();
         return true;
     }
 }

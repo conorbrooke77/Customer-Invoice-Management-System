@@ -6,10 +6,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.Information.LoginSessionData;
+
 public class ManagementSystem extends JFrame {
 
     private JPanel header, nav, navigationPanel, selected;
-    private JLabel logo, navigation, exit;
+    private JLabel profileName, logo, navigation, exit;
     private JPanel[] navagationPanels = new JPanel[5];
     private final String[] imageURLs = {"src/com/Resources/img/dashboard.png","src/com/Resources/img/Products.png","src/com/Resources/img/Invoices.png","src/com/Resources/img/customers.png","src/com/Resources/img/System-users.png"};
 
@@ -22,7 +24,7 @@ public class ManagementSystem extends JFrame {
         createHeader();
         createNavBar();
         createNavigationPanel();
-        add(new Template("Dashboard"), BorderLayout.CENTER);
+        add(new Dashboard("Dashboard"), BorderLayout.CENTER);
 
         setVisible(true);
     }
@@ -44,8 +46,36 @@ public class ManagementSystem extends JFrame {
         header.add(logo, BorderLayout.WEST);
 
         //Creating Profile Section
+        createProfile();
 
         super.add(header, BorderLayout.NORTH);
+    }
+
+    public void createProfile() {
+        JPanel profileContainer = new JPanel(new BorderLayout());
+        profileContainer.setPreferredSize(new Dimension(290,0));
+        profileContainer.setOpaque(false);
+
+        JLabel profilePic = new JLabel(new ImageIcon("src/com/Resources/img/pic.png"));
+        profilePic.setBorder(new EmptyBorder(0,0,0,40));
+
+        if (LoginSessionData.getIsAdmin()) {
+            profileName = new JLabel(LoginSessionData.getAdmin().getFirstName() + " " + LoginSessionData.getAdmin().getLastName());
+        } else {
+            profileName = new JLabel(LoginSessionData.getCustomer().getFirstName() + " " + LoginSessionData.getCustomer().getLastName());
+        }
+
+        profileName.setFont(new Font("Arial", Font.PLAIN, 17));
+        profileName.setForeground(Color.WHITE);
+
+        JLabel arrow = new JLabel(new ImageIcon("src/com/Resources/img/Webp.net-resizeimage (7).png"));
+        arrow.setBorder(new EmptyBorder(0,0,0,60));
+        
+        profileContainer.add(profilePic, BorderLayout.WEST);
+        profileContainer.add(profileName, BorderLayout.CENTER);
+        profileContainer.add(arrow, BorderLayout.EAST);
+
+        header.add(profileContainer, BorderLayout.EAST);
     }
 
     public void createNavBar() {
@@ -156,6 +186,11 @@ public class ManagementSystem extends JFrame {
     }
 
     public JPanel setClicked(java.awt.event.MouseEvent e, JPanel selected, JPanel highlighted) {
+        
+        String[] productInputs = {"Product Name ", "Product Price", "Product Description", "Product Brand", "Product Quantity", "Product Rating", "Product Weight"};
+        String[] systemUsersInputs = {"Enter First Name", "Enter Last Name", "Enter Email Address", "Enter Password", "Confirm Password", "Enter Phonenumber"};
+        String[] customerInputs = {"Enter First Name", "Enter Last Name", "Enter Email Address", "Enter Password", "Confirm Password", "Enter Phonenumber", "Enter Street", "Enter Town", "Enter County", "Enter Eircode"};
+
         if (!e.getSource().equals(selected) ) {
             
             selected.setFocusable(true);
@@ -164,27 +199,40 @@ public class ManagementSystem extends JFrame {
             
             repaint();
 
-            if (e.getSource().equals(navagationPanels[0])) {
-                add(new Template("Dashboard"), BorderLayout.CENTER);
-                navagationPanels[0].setFocusable(false);
-                return navagationPanels[0];
-            } else if (e.getSource().equals(navagationPanels[1])) {
-                add(new Template("Product"), BorderLayout.CENTER);
-                navagationPanels[1].setFocusable(false);
-                return navagationPanels[1];
-            } else if (e.getSource().equals(navagationPanels[2])) {
-                add(new Template("Invoice"), BorderLayout.CENTER);
-                navagationPanels[2].setFocusable(false);
-                return navagationPanels[2];
-            } else if (e.getSource().equals(navagationPanels[3])) {
-                add(new Template("Customer"), BorderLayout.CENTER);
-                navagationPanels[3].setFocusable(false);
-                return navagationPanels[3];
-            } else if (e.getSource().equals(navagationPanels[4])) {
-                add(new Template("System User"), BorderLayout.CENTER);
-                navagationPanels[4].setFocusable(false);
-                return navagationPanels[4];
+            if (LoginSessionData.getIsAdmin()){
+                if (e.getSource().equals(navagationPanels[0])) {
+                    add(new Dashboard("Dashboard"), BorderLayout.CENTER);
+                    navagationPanels[0].setFocusable(false);
+                    return navagationPanels[0];
+                } else if (e.getSource().equals(navagationPanels[1])) {
+                    add(new Template("Product", productInputs), BorderLayout.CENTER);
+                    navagationPanels[1].setFocusable(false);
+                    return navagationPanels[1];
+                } else if (e.getSource().equals(navagationPanels[3])) {
+                    add(new Template("Customer", customerInputs), BorderLayout.CENTER);
+                    navagationPanels[3].setFocusable(false);
+                    return navagationPanels[3];
+                } else if (e.getSource().equals(navagationPanels[4])) {
+                    add(new Template("System User", systemUsersInputs), BorderLayout.CENTER);
+                    navagationPanels[4].setFocusable(false);
+                    return navagationPanels[4];
+                } else {
+                    add(new JPanel(), BorderLayout.CENTER );
+                }
+            } else {
+                if (e.getSource().equals(navagationPanels[0])) {
+                    add(new Dashboard("Dashboard"), BorderLayout.CENTER);
+                    navagationPanels[0].setFocusable(false);
+                    return navagationPanels[0];
+                } else if (e.getSource().equals(navagationPanels[2])) {
+                    add(new Template("Invoice", productInputs), BorderLayout.CENTER);
+                    navagationPanels[2].setFocusable(false);
+                    return navagationPanels[2];
+                } else {
+                    add(new JPanel(), BorderLayout.CENTER );
+                }
             }
+            
         }
         return selected;
     }

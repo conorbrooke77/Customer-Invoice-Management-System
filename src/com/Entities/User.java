@@ -2,9 +2,11 @@ package com.Entities;
 
 import java.util.regex.*;
 
-public abstract class User {
+/*  
+    Purpose: The User class is the super class to all entities within the system.
+*/
 
-    private static int userID; // The total number of Users on the system;
+public abstract class User {
 
     private String firstName;
     private String lastName;
@@ -24,21 +26,6 @@ public abstract class User {
         setPhoneNumber(phoneNumber);
 
         createAccount(email, password); // Creates a User account object;
-
-        incrementTotalUsers();
-    }
-
-    /* Using a static method to increment the number of total users on the system */
-
-    /* Needed Test */
-
-    //If User is set to null will counter decrement? 
-    private static void incrementTotalUsers() {
-        userID++;
-    }
-
-    public static int getTotalUsers() {
-        return userID;
     }
 
     /* Sets the basic information for a User in the system */

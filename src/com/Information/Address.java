@@ -2,9 +2,6 @@ package com.Information;
 
 public class Address {
 
-    private static int totalAddress;
-    private int addressId;
-
     // Creates a valid address;
     private String street;
     private String town;
@@ -12,7 +9,6 @@ public class Address {
     private String eircode;
 
     public Address() {
-        increaseAddresses();
     }
     
     public Address(String street, String town, String county, String eircode) {
@@ -21,17 +17,6 @@ public class Address {
         setTown(town);
         setCounty(county);
         setEircode(eircode);
-
-        increaseAddresses();
-    }
-
-    public void increaseAddresses() {
-        totalAddress++;
-        addressId = totalAddress;
-    }
-
-    public int getAddressId() {
-        return addressId;
     }
 
     public void setStreet(String street) {

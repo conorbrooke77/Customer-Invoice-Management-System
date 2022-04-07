@@ -2,6 +2,10 @@ package com.Entities;
 
 public class Admin extends User {
 
+/*  
+     Purpose: The Admin class creates a Admin user that has access to all areas within the system.
+*/
+
     public Admin() {
 
     }

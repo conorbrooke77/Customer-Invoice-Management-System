@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import com.Driver.DatabaseConnector;
+import com.Database.DatabaseConnector;
 
 public class Login extends JFrame {
 
@@ -15,7 +15,6 @@ public class Login extends JFrame {
     private JPanel formContainer, form, formHeader, btnContainer, contentContainer, fieldContainer, otherContentContainer;
     private JLabel login;
     private JButton loginBtn;
-    private String listenerComponent;
     
     public Login() {
 
@@ -28,10 +27,6 @@ public class Login extends JFrame {
         createLoginForm();
 
         setVisible(true);
-    }
-
-    public String getListenerComponent() {
-        return listenerComponent;
     }
 
     public void createLoginForm() {
@@ -130,7 +125,7 @@ public class Login extends JFrame {
                 try {
                     DatabaseConnector.createConnection();
                     if (DatabaseConnector.retrieveLoginData(fieldsArr[0].getText(), fieldsArr[1].getText())) {
-                        listenerComponent = "login";
+                        new ManagementSystem();
                         dispose();
                     } else {
                         fieldsArr[0].setBorder(new LineBorder(Color.RED, 2));
@@ -161,7 +156,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AbstractButton absB = (AbstractButton) e.getSource();
                 if (absB.getModel().isSelected()) {
-                    listenerComponent = "register";
+                    new Register();
                     dispose();
                 }
             }
@@ -177,7 +172,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AbstractButton absB = (AbstractButton) e.getSource();
                 if (absB.getModel().isSelected()) {
-                    listenerComponent = "register";
+                    new Register();
                     dispose();
                 }
             }

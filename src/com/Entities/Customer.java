@@ -2,6 +2,10 @@ package com.Entities;
 
 import com.Information.*;
 
+/*  
+    Purpose: The customer class has access to some areas within the system it also includes an Address class.
+*/
+
 // Each customer is part of the CustomerManager.
 //Each customer is connected to the Database interface.
 

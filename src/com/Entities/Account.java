@@ -2,9 +2,11 @@ package com.Entities;
 
 import java.util.regex.*;
 
+/*  
+    Purpose: The purpose of the Account class is to store information related to the Login details of the User.
+             The class also includes account verification and recovery.
+*/
 public class Account {
-
-    //private static int accountID;
 
     private String email;
     private String password;
@@ -17,6 +19,11 @@ public class Account {
     /* Initialise Account information */
 
     //Uses regex to identify a valid email address;
+    /*** 
+     * 
+     * @param email
+     * @return Uses regex to verify email address
+     */
     private boolean emailValidator(String email) {
         Matcher matcher = Pattern.compile("^(.+)@(.+)$").matcher(email);
 
@@ -25,6 +32,11 @@ public class Account {
         return false;
     }
 
+    /**
+     * 
+     * @param email
+     * @return 
+     */
     public boolean setEmail(String email) {
         if(emailValidator(email)) {
             this.email = email;

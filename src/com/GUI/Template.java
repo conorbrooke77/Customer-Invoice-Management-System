@@ -5,19 +5,21 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
 
-public class Template extends JPanel{
+public class Template extends JPanel {
+
     private String headerName;
     private JLabel headerLabel;
     private JButton createBtn, manageBtn;
     private JScrollPane scrollPanel;
     private JPanel conentPanelContainer, btnPanel, contentPanel, headerPanel;
+    private String[] inputs;
 
 
-    public Template(String headerName) {
+    public Template(String headerName, String[] inputs) {
         this.headerName = headerName;
-        
+        this.inputs = inputs;
+
         setLayout(new BorderLayout());
         setBackground(new Color(246,246,246));
         setBorder(new EmptyBorder(0,60,100,60));
@@ -93,14 +95,10 @@ public class Template extends JPanel{
 
         contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Color.white);
-        contentPanel.setPreferredSize(new Dimension(600, 1300));
 
         scrollPanel.setMaximumSize(new Dimension(620, 850));
 
-        JPanel color = new JPanel();
-        color.setBackground(Color.BLACK);
-
-        contentPanel.add(color, BorderLayout.CENTER);
+        contentPanel.add(new Form(headerName, inputs), BorderLayout.CENTER);
         
         scrollPanel.setViewportView(contentPanel);
         conentPanelContainer.add(btnPanel, BorderLayout.NORTH);
@@ -127,16 +125,13 @@ public class Template extends JPanel{
         BorderLayout layout = (BorderLayout)contentPanel.getLayout();
         contentPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 
-        JPanel color = new JPanel();
-        color.setBackground(Color.BLACK);
-
-        contentPanel.add(color, BorderLayout.CENTER);
+        contentPanel.add(new Form(headerName, inputs), BorderLayout.CENTER);
     }
 
     public void manageContent() {
         BorderLayout layout = (BorderLayout)contentPanel.getLayout();
         contentPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
 
-        contentPanel.add(new ManageMenu(), BorderLayout.CENTER);
+        contentPanel.add(new ManageMenu(headerName), BorderLayout.CENTER);
     }
 }
