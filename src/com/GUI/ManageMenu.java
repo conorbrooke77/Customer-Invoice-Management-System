@@ -1,7 +1,6 @@
 package com.GUI;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.EventObject;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +17,6 @@ public class ManageMenu extends JPanel {
     private JTable table;
     private JLabel tableName;
     private String[][] data;
-    private JButton button;
     private String header;
     private DefaultTableModel model;
 
@@ -43,7 +41,6 @@ public class ManageMenu extends JPanel {
     }
 
     public void addTable() {
-        button = new JButton();
         String[] productColumns = {"prod_Id","prod_Name","prod_Price","prod_Description","prod_Brand","prod_Quantity","prod_Rating","prod_Weight", "Delete", "Update"};
         String[] invoiceColumns = {"invoiceId","customer_Name","noOfProducts","total","Delete", "Update"};
         String[] customerColumns = {"customerID","firstName","lastName","email","password","phoneNumber", "Delete", "Update"};
