@@ -150,7 +150,7 @@ public class DatabaseConnector {
 
         String[][] collection = new String[maxId][8];
 
-        ResultSet set = statement.executeQuery("SELECT * FROM Invoice");
+        ResultSet set = statement.executeQuery("SELECT * FROM Invoice WHERE paid=0");
 
         int i = 0;
 
