@@ -20,12 +20,21 @@ public class Customer extends User {
     public Customer() {
         
     }
+    
+    /** 
+     * Add an Address class to Customer class
+     * @param address
+     */
     // Getters and Setters for the Customer class;
 
     public void addCustomerAddress(Address address) {
         this.address = address;
     }
-
+    
+    /** 
+     * Get Customer Address
+     * @return Address
+     */
     public Address getCustomerAddress() {
         return address;
     }
